@@ -1,18 +1,24 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const mongoose = require("mongoose");
+const express = require('express')
+const app = express()
+const cors = require('cors')
+const mongoose = require('mongoose')
+const path = require('path')
 
 //imports routes to be accessed from server
-const postRouter = require("./api/posts");
+const postRouter = require('./api/posts')
+const userRouter = require('./api/user')
 
 //implementation of use local .env file
-require("dotenv").config();
+require('dotenv').config()
 
 //middleware
-app.use(cors());
-app.use(express.json());
-app.use("/api", postRouter);
+app.use(cors())
+app.use(express.json())
+app.use('/api/posts', postRouter)
+app.use('/api/user', userRouter)
+
+//static folder to serve html
+app.use(express.static(path.join(__dirname, 'frontend/build')))
 
 /*
 //endpoints
@@ -41,9 +47,9 @@ app.delete("/deletepost/:id", (req, res) => {
 mongoose.connect(
   process.env.MONGODB_URI,
   { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: true },
-  () => console.log("Connected to DB")
-);
+  () => console.log('Connected to DB'),
+)
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT
 
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))

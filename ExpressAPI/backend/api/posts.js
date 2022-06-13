@@ -84,7 +84,7 @@ postRouter.put("/updatepost/:id", (req, res) => {
 });
 
 //delete post
-postRouter.delete("/deletepost/:id", (req, res) => {
+postRouter.delete('/deletepost/:id', (req, res) => {
   /*console.log("Post ID", req.params.id);
   res.status(200).json({ msg: `Deleted post: ${req.params.id}` });*/
   Post.findByIdAndDelete(req.params.id, (err) => {
